@@ -1,9 +1,8 @@
-var User = require('../app/models/user')
+var User = require('./users.js')
 var Auth = require('./middlewares/authorization.js')
 
 module.exports = function (app, passport) {
   app.get('/', function (req, res) {
-    console.log("slash")
     if (req.isAuthenticated()) {
       res.render('home', {user: req.user})
     } else {
