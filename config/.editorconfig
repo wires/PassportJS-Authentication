@@ -1,0 +1,14 @@
+# configure line endings, tabs vs spaces
+# similar to vi-mode lines
+# see, http://editorconfig.org/
+
+# root is good
+root = true
+
+# 2 space indentation, standardjs.com style
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+indent_style = space
+indent_size = 2
