@@ -14,7 +14,8 @@
     "passport": "*",
     "passport-facebook": "*",
     "passport-google-oauth": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.9.1",
