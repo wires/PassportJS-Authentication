@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon --watch config --watch app.js app.js"
   },
   "dependencies": {
     "connect-flash": "*",
+    "errorhandler": "^1.4.3",
     "express": "4.13.4",
     "jade": "*",
     "mongodb": "*",
@@ -16,5 +17,8 @@
     "passport-facebook": "*",
     "passport-google-oauth": "*",
     "passport-local": "*"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.1"
   }
 }

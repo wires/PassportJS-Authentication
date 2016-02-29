@@ -1,5 +1,5 @@
 var express = require('express')
-// var fs = require('fs')
+
 var http = require('http')
 var path = require('path')
 var passport = require('passport')
@@ -7,12 +7,6 @@ var flash = require('connect-flash')
 
 var env = process.env.NODE_ENV || 'development'
 var config = require('./config/config')[env]
-
-// var models_dir = __dirname + '/app/models'
-// fs.readdirSync(models_dir).forEach(function (file) {
-//   if (file[0] === '.') return
-//   require(models_dir + '/' + file)
-// })
 
 require('./config/passport')(passport, config)
 
@@ -33,20 +27,22 @@ var cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
 var bodyParser = require('body-parser')
-app.use(bodyParser())
+app.use(bodyParser.json())
 
 var session = require('express-session')
-app.use(session({ secret: 'keyboard cat' }))
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 
 app.use(passport.initialize())
 app.use(passport.session())
 
 // app.use(express.methodOverride())
 app.use(flash())
-// app.use(app.router)
 app.use(express.static(path.join(__dirname, 'public')))
 
-// app.use(express.errorHandler())
+if (env === 'development') {
+  var errorHandler = require('errorhandler')
+  app.use(errorHandler())
+}
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 500)
