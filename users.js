@@ -1,3 +1,5 @@
+// these are the functions you need to implement
+
 function isValidUserPassword (username, password, callback) {
   console.log('>>> IS VALID USER PASSWORD >>>', username, password)
   if (username === password) {
