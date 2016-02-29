@@ -14,8 +14,8 @@ var app = express()
 var favicon = require('serve-favicon')
 app.use(favicon('./favicon.ico'))
 
-app.set('port', process.env.PORT || 3232)
-app.set('views', __dirname + '/app/views')
+app.set('port', process.env.PORT || config.port || 3232)
+app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'jade')
 
 // logger — https://github.com/expressjs/morgan
