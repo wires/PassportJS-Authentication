@@ -49,6 +49,8 @@ app.use(function (err, req, res, next) {
   res.render('500', { error: err })
 })
 
+require('./config/routes')(app, passport)
+
 app.use(function (req, res, next) {
   res.status(404)
   if (req.accepts('html')) {
@@ -61,8 +63,6 @@ app.use(function (req, res, next) {
   }
   res.type('txt').send('Not found')
 })
-
-require('./config/routes')(app, passport)
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'))
