@@ -71,18 +71,17 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: fals
 app.use(passport.initialize())
 app.use(passport.session())
 
-// app.use(express.methodOverride())
 app.use(flash())
 app.use(express.static(path.join(__dirname, 'public')))
 
-// run in development mode only
-var errorHandler = require('errorhandler')
-app.use(errorHandler())
-
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500)
-  res.render('500', { error: err })
-})
+// // run in development mode only
+// var errorHandler = require('errorhandler')
+// app.use(errorHandler())
+//
+// app.use(function (err, req, res, next) {
+//   res.status(err.status || 500)
+//   res.render('500', { error: err })
+// })
 
 app.get('/', function (req, res) {
   if (req.isAuthenticated()) {
