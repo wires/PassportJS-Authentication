@@ -2,14 +2,49 @@ var express = require('express')
 
 var http = require('http')
 var path = require('path')
-var passport = require('passport')
 var flash = require('connect-flash')
 
 var config = require('./config.js')
 var User = require('./users.js')
 var Auth = require('./authorization.js')
 
-require('./passport')(passport, config)
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy
+var FacebookStrategy = require('passport-facebook').Strategy
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id)
+})
+
+passport.deserializeUser(function (id, done) {
+  User.findUser(id, function (err, user) {
+    done(err, user)
+  })
+})
+
+var localConf = {usernameField: 'email', passwordField: 'password'}
+passport.use(new LocalStrategy(localConf, function (email, password, done) {
+  User.isValidUserPassword(email, password, done)
+}))
+
+passport.use(new FacebookStrategy(config.facebook,
+  function (accessToken, refreshToken, profile, done) {
+    profile.authOrigin = 'facebook'
+    User.findOrCreateOAuthUser(profile, function (err, user) {
+      return done(err, user)
+    })
+  })
+)
+
+passport.use(new GoogleStrategy(config.google,
+  function (accessToken, refreshToken, profile, done) {
+    profile.authOrigin = 'google'
+    User.findOrCreateOAuthUser(profile, function (err, user) {
+      return done(err, user)
+    })
+  })
+)
 
 var app = express()
 
