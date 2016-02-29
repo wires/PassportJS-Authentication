@@ -7,10 +7,14 @@
     "start": "node_modules/.bin/nodemon --watch config --watch app.js app.js"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
     "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
     "errorhandler": "^1.4.3",
     "express": "4.13.4",
+    "express-session": "^1.13.0",
     "jade": "*",
+    "morgan": "^1.7.0",
     "passport": "*",
     "passport-facebook": "*",
     "passport-google-oauth": "*",
