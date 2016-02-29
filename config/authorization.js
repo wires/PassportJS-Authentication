@@ -1,4 +1,4 @@
-var User = require('../users.js')
+var User = require('./users.js')
 
 exports.isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {

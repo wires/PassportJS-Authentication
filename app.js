@@ -5,8 +5,7 @@ var path = require('path')
 var passport = require('passport')
 var flash = require('connect-flash')
 
-var env = process.env.NODE_ENV || 'development'
-var config = require('./config/config')[env]
+var config = require('./config.js')
 
 require('./config/passport')(passport, config)
 
@@ -39,10 +38,9 @@ app.use(passport.session())
 app.use(flash())
 app.use(express.static(path.join(__dirname, 'public')))
 
-if (env === 'development') {
-  var errorHandler = require('errorhandler')
-  app.use(errorHandler())
-}
+// run in development mode only
+var errorHandler = require('errorhandler')
+app.use(errorHandler())
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 500)

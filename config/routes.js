@@ -1,5 +1,5 @@
 var User = require('./users.js')
-var Auth = require('./middlewares/authorization.js')
+var Auth = require('./authorization.js')
 
 module.exports = function (app, passport) {
   app.get('/', function (req, res) {

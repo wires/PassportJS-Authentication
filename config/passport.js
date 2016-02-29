@@ -15,36 +15,26 @@ module.exports = function (passport, config) {
     })
   })
 
-  passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
-    function (email, password, done) {
-      User.isValidUserPassword(email, password, done)
-    }))
+  var localConf = {usernameField: 'email', passwordField: 'password'}
+  passport.use(new LocalStrategy(localConf, function (email, password, done) {
+    User.isValidUserPassword(email, password, done)
+  }))
 
-  passport.use(new FacebookStrategy({
-    clientID: config.facebook.clientID,
-    clientSecret: config.facebook.clientSecret,
-    callbackURL: config.facebook.callbackURL
-  },
+  passport.use(new FacebookStrategy(config.facebook,
     function (accessToken, refreshToken, profile, done) {
       profile.authOrigin = 'facebook'
       User.findOrCreateOAuthUser(profile, function (err, user) {
         return done(err, user)
       })
-    }))
+    })
+  )
 
-  passport.use(new GoogleStrategy({
-    clientID: config.google.clientID,
-    clientSecret: config.google.clientSecret,
-    callbackURL: config.google.callbackURL
-  },
+  passport.use(new GoogleStrategy(config.google,
     function (accessToken, refreshToken, profile, done) {
       profile.authOrigin = 'google'
       User.findOrCreateOAuthUser(profile, function (err, user) {
         return done(err, user)
       })
-    }
-  ))
+    })
+  )
 }
