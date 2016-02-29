@@ -1,21 +1,18 @@
 var express = require('express')
-var fs = require('fs')
+// var fs = require('fs')
 var http = require('http')
 var path = require('path')
-var mongoose = require('mongoose')
 var passport = require('passport')
 var flash = require('connect-flash')
 
 var env = process.env.NODE_ENV || 'development'
 var config = require('./config/config')[env]
 
-mongoose.connect(config.db)
-
-var models_dir = __dirname + '/app/models'
-fs.readdirSync(models_dir).forEach(function (file) {
-  if (file[0] === '.') return
-  require(models_dir + '/' + file)
-})
+// var models_dir = __dirname + '/app/models'
+// fs.readdirSync(models_dir).forEach(function (file) {
+//   if (file[0] === '.') return
+//   require(models_dir + '/' + file)
+// })
 
 require('./config/passport')(passport, config)
 
